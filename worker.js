@@ -5,9 +5,7 @@ if (typeof window !== "undefined") {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistration().then( function(r) {
         navigator.serviceWorker.register("/worker.js", { scope: "/" })
-          .then( function(registration) {
-            console.log('インストール完了');
-          } )
+          .then( subscribe )
           .catch( function(error) {
             console.log('インストールが正常にできませんでした');
           }
@@ -17,7 +15,10 @@ if (typeof window !== "undefined") {
 
   });
 } else {
-  self.addEventListener("push", function() {
+  self.addEventListener("push", function(event) {
+    console.log(event);
+    console.log(event.data);
+    console.log(event.data.json());
     self.registration.showNotification("プッシュ通知だよ", {
       body: "通知メッセージ( ᐛ👐)パァ",
       icon: "https://pbs.twimg.com/profile_images/1303203427/zaru2png_400x400",
