@@ -16,9 +16,6 @@ if (typeof window !== "undefined") {
   });
 } else {
   self.addEventListener("push", function(event) {
-    console.log(event);
-    console.log(event.data);
-    console.log(event.data.json());
     self.registration.showNotification("プッシュ通知だよ", {
       body: "通知メッセージ( ᐛ👐)パァ",
       icon: "https://pbs.twimg.com/profile_images/1303203427/zaru2png_400x400",
