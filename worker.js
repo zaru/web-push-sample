@@ -16,14 +16,15 @@ if (typeof window !== "undefined") {
   });
 } else {
   self.addEventListener("push", function(event) {
+    // console.log(event.data.json());
     self.registration.showNotification("プッシュ通知だよ", {
-      body: "通知メッセージ( ᐛ👐)パァ",
+      body: "通知メッセージ( ᐛ)パァ",
       icon: "https://pbs.twimg.com/profile_images/1303203427/zaru2png_400x400",
-      tag: "tag",
-      actions: [
-        {action: 'action1', title: "ボタンだよ😀"},
-        {action: 'action2', title: "こっちもボタン👻"}
-      ]
+      // tag: "tag",
+      // actions: [
+      //   {action: 'action1', title: "ボタンだよ😀"},
+      //   {action: 'action2', title: "こっちもボタン👻"}
+      // ]
     });
   });
 
@@ -46,7 +47,12 @@ function subscribe(registration) {
     Notification.requestPermission(function(permission) {
       if(permission !== 'denied') {
         sw.pushManager.subscribe({userVisibleOnly: true}).then(function(s) {
-          console.log(s.endpoint);
+          var data = {
+            endpoint: s.endpoint,
+            key: btoa(String.fromCharCode.apply(null, new Uint8Array(s.getKey('p256dh')))).replace(/\+/g, '-').replace(/\//g, '_'),
+            auth: btoa(String.fromCharCode.apply(null, new Uint8Array(s.getKey('auth')))).replace(/\+/g, '-').replace(/\//g, '_')
+          }
+          console.log(data);
         });
       }
     });
