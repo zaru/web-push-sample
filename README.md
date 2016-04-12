@@ -1,5 +1,8 @@
 # web-push-sample
-ServiceWorker WebPushNotification sample / demo script
+ServiceWorker WebPushNotification sample / demo script.
+
+WebPush ruby gem here.
+https://github.com/zaru/webpush
 
 ## usage
 
