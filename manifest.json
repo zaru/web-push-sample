@@ -2,7 +2,5 @@
   "name": "Pushnate",
   "short_name": "Pushnate",
   "start_url": "/",
-  "display": "standalone",
-  "gcm_sender_id": "234898255798",
-  "gcm_user_visible_only": true
+  "display": "standalone"
 }

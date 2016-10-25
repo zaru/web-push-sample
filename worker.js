@@ -45,7 +45,10 @@ function subscribe(registration) {
   navigator.serviceWorker.ready.then(function(sw) {
     Notification.requestPermission(function(permission) {
       if(permission !== 'denied') {
-        sw.pushManager.subscribe({userVisibleOnly: true}).then(function(s) {
+        sw.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: new Uint8Array([4, 127, 0, 249, 93, 16, 236, 156, 61, 38, 26, 228, 251, 236, 246, 251, 38, 173, 31, 163, 46, 212, 105, 52, 17, 220, 139, 241, 168, 207, 213, 48, 133, 30, 102, 125, 64, 137, 187, 144, 42, 157, 116, 205, 182, 237, 204, 81, 175, 174, 24, 210, 235, 14, 150, 118, 20, 118, 245, 32, 40, 147, 7, 154, 131])
+        }).then(function(s) {
           var data = {
             endpoint: s.endpoint,
             p256dh: btoa(String.fromCharCode.apply(null, new Uint8Array(s.getKey('p256dh')))).replace(/\+/g, '-').replace(/\//g, '_'),
