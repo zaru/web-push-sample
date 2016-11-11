@@ -18,14 +18,12 @@ if (typeof window !== "undefined") {
   self.addEventListener("push", function(event) {
     var json = event.data.json();
     self.registration.showNotification(json.title, {
-      body: json.body,
-      icon: json.icon,
-
-      // tag: "tag",
-      // actions: [
-      //   {action: 'action1', title: "button 1"},
-      //   {action: 'action2', title: "button 2"}
-      // ]
+      body: json.description,
+      icon: "http://localhost:9292/zaru.png",
+      actions: [
+        {action: 'action1', title: "button 1"},
+        {action: 'action2', title: "button 2"}
+      ]
     });
   });
 
@@ -55,13 +53,17 @@ function subscribe(serverPublicKey) {
             p256dh: btoa(String.fromCharCode.apply(null, new Uint8Array(s.getKey('p256dh')))).replace(/\+/g, '-').replace(/\//g, '_'),
             auth: btoa(String.fromCharCode.apply(null, new Uint8Array(s.getKey('auth')))).replace(/\+/g, '-').replace(/\//g, '_')
           }
-          document.getElementById("endpoint").textContent = data.endpoint;
-          document.getElementById("auth").textContent = data.auth;
-          document.getElementById("p256dh").textContent = data.p256dh;
+          displayView(data);
         });
       }
     });
   });
+}
+
+function displayView(data) {
+  $("#endpoint").text(data.endpoint);
+  $("#p256dh").text(data.p256dh);
+  $("#auth").text(data.auth);
 }
 
 function base64ToArrayBuffer(serverPublicKey) {

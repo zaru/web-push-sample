@@ -8,10 +8,10 @@ html
 
     h2 VAPID keys
     ul
-      li public_key: #{@vapid_key.public_key}
-      li private_key: #{@vapid_key.private_key}
+      li public_key: #{@vapid[:public_key]}
+      li private_key: #{@vapid[:private_key]}
 
-    button#btn-register type="button" data-public-key="#{@vapid_key.public_key}" register
+    button#btn-register type="button" data-public-key="#{@vapid[:public_key]}" register
 
     h2 endpoint
     ul
@@ -25,7 +25,7 @@ html
         |p256dh:
         span#p256dh
 
-    form
+    form action="/push" method="post"
       input type="hidden" name="endpoint"
       input type="hidden" name="auth"
       input type="hidden" name="p256dh"
@@ -33,7 +33,22 @@ html
       input type="text" name="title"
       input type="text" name="description"
 
-      input type="submit" push
+      input#submit type="submit" value="push"
 
     script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
     script src="/worker.js"
+
+    javascript:
+      $(function() {
+        $("#submit").on("click", function() {
+          $.post("/push", {
+            endpoint: $("#endpoint").text(),
+            auth: $("#auth").text(),
+            p256dh: $("#p256dh").text(),
+            message_json: JSON.stringify({ title: $("input[name=title]").val(), description: $("input[name=description]").val() })
+          }, function(data) {
+            console.log(data);
+          })
+          return false;
+        });
+      });

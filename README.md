@@ -1,5 +1,5 @@
 # web-push-sample
-ServiceWorker WebPushNotification sample / demo script.
+ServiceWorker WebPushNotification VAPID sample / demo script.
 
 WebPush ruby gem here.
 https://github.com/zaru/webpush
@@ -7,11 +7,10 @@ https://github.com/zaru/webpush
 ## usage
 
 ```
-$ php -S localhost:9999
+$ bundle install
+$ bundle exec rackup
 ```
 
-open http://localhost:9999
-
 ```
-$ curl --header "Authorization: key=API_KEY" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"endpoint\"]}"
+open http://localhost:9292/
 ```
