@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    link href="/manifest.json" rel="manifest"
+  body
+    h1 web push api sample
+
+    h2 VAPID keys
+    ul
+      li public_key: #{@vapid_key.public_key}
+      li private_key: #{@vapid_key.private_key}
+
+    button#btn-register type="button" data-public-key="#{@vapid_key.public_key}" register
+
+    h2 endpoint
+    ul
+      li
+        |endpoint:
+        span#endpoint
+      li
+        |auth:
+        span#auth
+      li
+        |p256dh:
+        span#p256dh
+
+    form
+      input type="hidden" name="endpoint"
+      input type="hidden" name="auth"
+      input type="hidden" name="p256dh"
+
+      input type="text" name="title"
+      input type="text" name="description"
+
+      input type="submit" push
+
+    script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+    script src="/worker.js"
